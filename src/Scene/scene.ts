@@ -7,7 +7,7 @@ import { Barrier } from '../GameObjects/barrier';
 export class Scene {
 	bird: Bird;
 	barriers: Barrier[] = [];
-	scroll = 0;
+	XOffset: number = 0;
 
 	constructor() {
 		this.bird = new Bird();
@@ -45,16 +45,15 @@ export class Scene {
 	}
 
 	private renderBarriers(): void {
-		this.scroll += 0.05;
 		Shader.barrier.enable();
-		// Shader.barrier.setUniform2f('bird', 0, this.bird.getPositionY());
-		Shader.barrier.setUniformMatrix4f('vw_matrix', new float4x4().translate(new float3(this.scroll, 0, 0)));
+		Shader.barrier.setUniform2f('u_bird', 0, this.bird.getPositionY());
+		Shader.barrier.setUniformMatrix4f('vw_matrix', new float4x4().translate(new float3(this.XOffset * 0.1, 0, 0)));
 		Barrier.texture.bind();
 		Barrier.mesh.bind();
 
 		for (let i = 0; i < 10; ++i) {
 			Shader.barrier.setUniformMatrix4f('ml_matrix', this.barriers[i].getModelMatrix());
-			// Shader.barrier.setUniform1i('top', i % 2 === 0 ? 1: 0);
+			Shader.barrier.setUniform1i('u_top', i % 2 === 0 ? 1 : 0);
 			Barrier.mesh.draw();
 		}
 		Barrier.mesh.unbind();

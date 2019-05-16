@@ -8,6 +8,8 @@
     <style>
         body {
             margin: 0;
+            padding: 0;
+            overflow-y: hidden;
         }
 
         #glCanvas {
@@ -100,13 +102,24 @@
     
     uniform sampler2D u_tex;
     uniform vec2 u_bird;
-    uniform float u_top;
+    uniform int u_top;
     
     void main() {
-//        if(top == 1) {
-//            v_texPosition.y = 1.0 - v_texPosition.y;
-//        }
-        gl_FragColor = texture2D(u_tex, v_texPosition);
+        vec2 texPosition = v_texPosition;
+        
+        if(u_top == 1) {
+            texPosition.y = 1.0 - v_texPosition.y;
+        }
+
+        vec4 color = texture2D(u_tex, texPosition);
+        
+        if(color.w < 1.0)
+            discard;
+        
+        color *= 2.0  / (length(u_bird - v_position.xy) + 1.5) + 0.5;
+        color.w = 1.0;
+            
+        gl_FragColor = color;
     }
     
 </script>

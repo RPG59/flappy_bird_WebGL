@@ -21,8 +21,8 @@ export class Barrier {
 		const vertices = new Float32Array([
 			0.0, 0.0, 0.1,
 			0.0, this.height, 0.1,
-			0.0, this.height, 0.1,
-			0.0, 0.0, 0.1,
+			1.5, this.height, 0.1,
+			1.5, 0.0, 0.1,
 		]);
 		const indices = new Uint8Array([
 			0, 1, 2,

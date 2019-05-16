@@ -13,6 +13,8 @@ export class Game {
 	count: number = 0;
 
 	public init(): Promise<void> {
+		GL.enable(GL.DEPTH_TEST);
+		GL.activeTexture(GL.TEXTURE0);
 		this.loadShaders();
 		this.setUniforms();
 		Input.init();
