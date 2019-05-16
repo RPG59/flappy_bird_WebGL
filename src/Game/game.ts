@@ -1,6 +1,6 @@
 import { Shader } from '../Graphics/shader';
 import { Background } from '../GameObjects/background';
-import { GL, IGameObject } from '../common';
+import { DISPLAY_HEIGHT, DISPLAY_WIDTH, GL, IGameObject } from '../common';
 import { float4x4 } from '../Math/math';
 import { Bird } from '../GameObjects/bird';
 import { Scene } from '../Scene/scene';
@@ -55,7 +55,7 @@ export class Game {
 
 	private setUniforms(): void {
 		const projMatrix = new float4x4();
-		projMatrix.orthographic(-10, 10, -10 * 9 / 16, 10 * 9 / 16, -1, 1);
+		projMatrix.orthographic(-DISPLAY_WIDTH, DISPLAY_WIDTH, -DISPLAY_HEIGHT, DISPLAY_HEIGHT, -1, 1);
 		Shader.background.setUniformMatrix4f('u_projectionMatrix', projMatrix);
 		Shader.background.setUniform1i('u_tex', 0);
 		Shader.bird.setUniformMatrix4f('u_projectionMatrix', projMatrix);

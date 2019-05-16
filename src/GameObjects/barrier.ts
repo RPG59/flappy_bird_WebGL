@@ -1,12 +1,13 @@
 import { VertexArray } from '../Graphics/vertexArray';
 import { Texture } from '../Graphics/texture';
 import { float3, float4x4 } from '../Math/math';
+import { DISPLAY_HEIGHT } from '../common';
 
 export class Barrier {
 	public static mesh: VertexArray;
 	public static texture: Texture;
 
-	private static height = 5;
+	private static height = 2 * DISPLAY_HEIGHT - 3;
 
 	private position: float3;
 	private ml_matrix: float4x4;

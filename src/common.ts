@@ -1,4 +1,6 @@
 export let GL: WebGL2RenderingContext = null;
+export const DISPLAY_WIDTH = 10;
+export const DISPLAY_HEIGHT = 9 / 16 * DISPLAY_WIDTH; 
 
 export function initWebGL() {
 	const canvas: any = document.querySelector('#glCanvas');
