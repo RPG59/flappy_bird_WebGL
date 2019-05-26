@@ -42,6 +42,18 @@ export class Shader {
 		this.enable();
 		GL.uniform1i(location, value);
 	}
+	
+	public setUniform1f(uniformName: string, value: number): void {
+		const location = this.getLocation(uniformName);
+
+		if (location === null) {
+			console.error('SET UNIFORM FLOAT ERROR: ' + uniformName + ' not found!');
+			return;
+		}
+
+		this.enable();
+		GL.uniform1f(location, value);
+	}
 
 	public setUniformMatrix4f(uniformName: string, matrix: float4x4): void {
 		const location = this.getLocation(uniformName);
