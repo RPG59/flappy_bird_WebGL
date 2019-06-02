@@ -9,7 +9,7 @@ import { Barrier } from '../GameObjects/barrier';
 
 export class Game {
     scene: Scene;
-    gameObjectsArray: any[] = [Bird, Background, Barrier];
+    gameObjectsArray: IGameObject[] = [Bird, Background, Barrier];
     count: number = 0;
 
     public init(): Promise<void> {
@@ -19,10 +19,7 @@ export class Game {
         this.setUniforms();
         Input.init();
         this.scene = new Scene();
-        // setInterval(() => {
-        // 	console.log(this.count);
-        // 	this.count = 0;
-        // }, 1000);
+        
         return this.loadObjects();
     }
 
@@ -32,7 +29,6 @@ export class Game {
             this.render();
             this.update();
             requestAnimationFrame(this.run.bind(this));
-            // setTimeout(() => this.run(), 50);
         }
     }
 

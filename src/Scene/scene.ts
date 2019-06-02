@@ -3,7 +3,7 @@ import { Shader } from '../Graphics/shader';
 import { Background } from '../GameObjects/background';
 import { float3, float4x4 } from '../Math/math';
 import { Barrier, BARRIER_GAP } from '../GameObjects/barrier';
-import { DISPLAY_HEIGHT, DISPLAY_WIDTH, GL } from '../common';
+import { DISPLAY_HEIGHT, DISPLAY_WIDTH } from '../common';
 
 const BACKGROUND_OFFSET_MULTIPLIER = 0.03;
 const BARRIERS_OFFSET_MULTIPLIER = 0.05;
@@ -26,7 +26,6 @@ export class Scene {
 
     public update(): void {
         this.XOffset -= 2;
-        // if (XOffset * MULTIPLIER -> DISPLAY_WIDTH)  bgXOffset++
         if (this.XOffset % Math.ceil(DISPLAY_WIDTH / BACKGROUND_OFFSET_MULTIPLIER) === 0)
             this.bgXOffset++;
 
