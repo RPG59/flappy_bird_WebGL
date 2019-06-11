@@ -27,10 +27,34 @@
             width: 100%;
             text-align: center;
         }
+
+        #new-game-button {
+            cursor: pointer;
+            background-color: coral;
+            color: #fff;
+            border-radius: 5rem;
+            font-size: 20px;
+            padding: 10px 20px;
+        }
+
+        #new-game-button:hover {
+            border: 1px solid #fff;
+        }
+
+        .score-counter {
+            position: absolute;
+            top: 20px;
+            left: 60px;
+            font-size: 40px;
+            color: coral;
+            font-weight: 600;
+            letter-spacing: 3px;
+        }
         
         .show {
             display: block;
         }
+
     </style>
 </head>
 
@@ -39,8 +63,13 @@
     <canvas id="glCanvas"></canvas>
     <div class="game-over">
         <h1>GAME OVER</h1>
+        <span id="new-game-button">New Game</div>
+    </div>
+    <div class="score-counter">
+        0000
     </div>
 </div>
+
 
 <script type="x-shader/x-vertex" id="backgroundVS">
     attribute vec4 a_position;

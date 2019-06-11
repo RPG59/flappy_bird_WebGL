@@ -13,15 +13,17 @@ export class Scene {
     private barriers: Barrier[] = [];
     private barrierOffset: number = 5;
     private currentBarrierIndex: number = 0;
-    private time: number = 0;
     private XOffset: number = 0;
     private bgXOffset: number = 0;
-    
+    private scoreCounterView: HTMLElement;
+    private scoreCounter: number = 0;
+
     public isEndGame: boolean = false;
 
     constructor() {
         this.bird = new Bird();
         this.createBarriers();
+        this.scoreCounterView = document.querySelector('.score-counter');
     }
 
     public update(): void {
@@ -29,15 +31,18 @@ export class Scene {
         if (this.XOffset % Math.ceil(DISPLAY_WIDTH / BACKGROUND_OFFSET_MULTIPLIER) === 0)
             this.bgXOffset++;
 
-        if (-this.XOffset > 250 && -this.XOffset % 120 === 0)
-            this.updateBarriers();
+        if (-this.XOffset % 120 === 0) {
+            this.scoreCounter += .001;
+            this.updateScoreCounterView();
+            if (-this.XOffset > 250)
+                this.updateBarriers();
+        }
 
         if (this.collisionDetection()) {
             this.endGame();
         }
 
         this.bird.update();
-        this.time += 0.01;
     }
 
     public render(): void {
@@ -122,12 +127,16 @@ export class Scene {
                 return true;
         }
     }
-    
+
     private endGame(): void {
-        this.isEndGame = true;       
-        document.querySelector('.game-over').classList.add('show'); 
+        this.isEndGame = true;
+        document.querySelector('.game-over').classList.add('show');
     }
-    
-    
+
+    private updateScoreCounterView(): void {
+        this.scoreCounterView.innerHTML  = this.scoreCounter.toFixed(3).replace('.', '');
+    }
+
+
 
 }

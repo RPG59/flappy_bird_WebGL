@@ -12,7 +12,13 @@ export class Game {
     gameObjectsArray: IGameObject[] = [Bird, Background, Barrier];
     count: number = 0;
 
-    public init(): Promise<void> {
+    constructor() {
+        document.getElementById('new-game-button').addEventListener('click', () => {
+            this.newGame();
+        });
+    }
+
+    public init(): Promise<void[]> {
         GL.enable(GL.DEPTH_TEST);
         GL.activeTexture(GL.TEXTURE0);
         this.loadShaders();
@@ -32,24 +38,21 @@ export class Game {
         }
     }
 
+    private newGame(): void {
+        document.querySelector('.game-over').classList.remove('show'); 
+        document.querySelector('.score-counter').innerHTML = '0000';
+        this.scene = new Scene();
+        this.run();
+    }
+
     private loadShaders(): void {
         Shader.background = new Shader('backgroundVS', 'backgroundFS');
         Shader.bird = new Shader('birdVS', 'birdFS');
         Shader.barrier = new Shader('barrierVS', 'barrierFS');
     }
 
-    private async loadObjects(): Promise<void> {
-        return new Promise(res => {
-            let counter = this.gameObjectsArray.length;
-
-            this.gameObjectsArray.forEach(x => {
-                x.create().then(() => {
-                    if (!--counter) {
-                        res();
-                    }
-                });
-            });
-        });
+    private loadObjects(): Promise<void[]> {
+        return Promise.all(this.gameObjectsArray.map(x => x.create()));
     }
 
     private setUniforms(): void {
@@ -68,6 +71,7 @@ export class Game {
     }
 
     private render(): void {
+        // TODO: frametime controller
         GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
         this.scene.render();
 
