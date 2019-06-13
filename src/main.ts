@@ -8,7 +8,6 @@ function main(): void {
 		console.log('WebGL context not found!');
 		return;
 	}
-	console.log(GL);
 
 	const game = new Game();
 
